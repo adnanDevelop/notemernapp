@@ -1,10 +1,11 @@
 const User = require("../models/register-model");
+const bcrypt = require("bcrypt");
 
 const getData = async (req, res) => {
   res.json({ message: "working" });
 };
 
-// Register user route
+// Register Route
 const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -33,4 +34,33 @@ const register = async (req, res, next) => {
   }
 };
 
-module.exports = { register, getData };
+//Login Router
+const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    const userExit = await User.find({});
+
+    console.log(userExit);
+
+    // if (!isUserExit) {
+    //   return res.status(401).json({ message: "Invalid Credentials" });
+    // }
+
+    // const userPassword = await bcrypt.compare(password, isUserExit.password);
+    // if (userPassword) {
+    //   res.status(200).json({
+    //     message: "Login successfull",
+    //     user: isUserExit,
+    //     token: await storeData.generateToken(),
+    //   });
+    // } else {
+    //   return res.status(401).json({ message: "Invalid email or password" });
+    // }
+  } catch (error) {
+    next(error);
+    console.log("Error while login user", error);
+  }
+};
+
+module.exports = { register, getData, login };
