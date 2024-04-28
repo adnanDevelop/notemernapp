@@ -12,5 +12,5 @@ app.use("/api", router);
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   dbConnection();
-  console.log("Server is running at port no 4000");
+  console.log("Server is running at port no:", PORT);
 });
