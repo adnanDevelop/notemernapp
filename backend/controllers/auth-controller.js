@@ -39,24 +39,24 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const userExit = await User.find({});
+    // Check if user exit
+    const userExit = await User.findOne({ email });
+    if (!userExit) {
+      return res.status(401).json({ message: "Invalid Credentials" });
+    }
 
-    console.log(userExit);
+    // Comparing user password
+    const userPassword = await bcrypt.compare(password, userExit.password);
 
-    // if (!isUserExit) {
-    //   return res.status(401).json({ message: "Invalid Credentials" });
-    // }
-
-    // const userPassword = await bcrypt.compare(password, isUserExit.password);
-    // if (userPassword) {
-    //   res.status(200).json({
-    //     message: "Login successfull",
-    //     user: isUserExit,
-    //     token: await storeData.generateToken(),
-    //   });
-    // } else {
-    //   return res.status(401).json({ message: "Invalid email or password" });
-    // }
+    if (userPassword) {
+      res.status(200).json({
+        message: "Login successfull",
+        user: userExit,
+        token: await userExit.generateToken(),
+      });
+    } else {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
   } catch (error) {
     next(error);
     console.log("Error while login user", error);
