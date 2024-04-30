@@ -29,7 +29,7 @@ const register = async (req, res, next) => {
       token: await storeData.generateToken(),
     });
   } catch (error) {
-    console.log("Error at register route", error);
+    // console.log("Error at register route", error);
     next(error);
   }
 };

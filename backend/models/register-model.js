@@ -34,6 +34,7 @@ registerModel.pre("save", async function (next) {
   }
 });
 
+// Generating token when user login and signup as well
 registerModel.methods.generateToken = async function () {
   try {
     return jwt.sign(
