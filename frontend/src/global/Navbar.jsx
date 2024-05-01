@@ -8,7 +8,7 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <nav className=" bg-dark_blue  py-[15px]">
+    <nav className=" bg-dark_blue  py-[15px] fixed w-full top-0 left-0">
       <div className="container flex items-center justify-between ">
         {/* Logo */}
         <div>

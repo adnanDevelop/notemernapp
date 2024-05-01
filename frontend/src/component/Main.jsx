@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "./Card";
 import { FaPlus } from "react-icons/fa6";
 import EditInputForm from "./EditInputForm";
 
 export default function Main() {
   return (
-    <main className="bg-light_blue py-[30px] ">
+    <main className="bg-light_blue pb-[30px] pt-[100px] ">
       <section className="container ">
         {/* Header */}
-        <div className="flex items-center justify-between header">
-          <h1 className="text-content_color text-[25px] font-medium leading-none">
+        <div className="flex items-center justify-end md:justify-between header">
+          <h1 className="text-content_color text-[25px] font-medium leading-none md:block hidden">
             Start a new note-taking
           </h1>
           <button
@@ -34,7 +34,6 @@ export default function Main() {
         {/* Modal for creating new note  */}
         <dialog id="create_modal" className="modal ">
           <div className="overflow-hidden rounded-md modal-box bg-dark_blue">
-           
             {/* Edit Input Form */}
             <EditInputForm />
           </div>

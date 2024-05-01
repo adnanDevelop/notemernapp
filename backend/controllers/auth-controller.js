@@ -1,10 +1,6 @@
 const User = require("../models/register-model");
 const bcrypt = require("bcrypt");
 
-const getData = async (req, res) => {
-  res.json({ message: "working" });
-};
-
 // Register Route
 const register = async (req, res, next) => {
   try {
@@ -63,4 +59,17 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { register, getData, login };
+// Get User Data Router
+
+const getUser = async (req, res, next) => {
+  try {
+    const userData = req.user;
+    console.log(userData);
+    res.status(200).json({ message: userData });
+  } catch (error) {
+    next(error);
+    console.log("Error while getting user data", error);
+  }
+};
+
+module.exports = { register, login, getUser };
