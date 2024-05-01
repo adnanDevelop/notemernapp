@@ -1,33 +1,15 @@
 import React from "react";
-// import { MdLightMode } from "react-icons/md";
-// import { MdDarkMode } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../feature/user/userSlice";
 
 export default function Navbar() {
-  //   const [icon, setIcon] = useState(true);
-  //   const [theme, setTheme] = useState(
-  //     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  //   );
-
-  //   useEffect(() => {
-  //     localStorage.setItem("theme", theme);
-  //     const localTheme = localStorage.getItem("theme");
-
-  //     document.querySelector("html").setAttribute("data-theme", localTheme);
-  //   }, [theme]);
-
-  //   const switchTheme = (event) => {
-  //     if (localStorage.getItem("theme") === "light") {
-  //       setTheme("dark");
-  //       setIcon(true);
-  //     } else {
-  //       setTheme("light");
-  //       setIcon(false);
-  //     }
-  //   };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <nav className=" bg-dark_blue  py-[15px]">
-      <div className="container flex items-center justify-between  ">
+      <div className="container flex items-center justify-between ">
         {/* Logo */}
         <div>
           <img
@@ -37,11 +19,11 @@ export default function Navbar() {
           />
         </div>
         {/* Search bar */}
-        <div className="search_bar md:block hidden">
+        <div className="hidden search_bar md:block">
           <label className="input input-bordered h-[35px] w-[400px] bg-light_blue flex items-center gap-2">
             <input
               type="text"
-              className="grow text-xs text-white"
+              className="text-xs text-white grow"
               placeholder="Search"
             />
             <svg
@@ -68,10 +50,17 @@ export default function Navbar() {
               alt=""
             />
             <div className="flex flex-col items-start gap-1 cursor-pointer">
-              <h4 className="leading-none text-white sm:text-sm text-xs transition duration-300 hover:text-green">
+              <h4 className="text-xs leading-none text-white transition duration-300 sm:text-sm hover:text-green">
                 Uername
               </h4>
-              <button className="text-white sm:text-xs text-[10px] leading-none transition duration-300 hover:text-green">
+              <button
+                type="button"
+                className="text-white sm:text-xs text-[10px] leading-none transition duration-300 hover:text-green"
+                onClick={() => {
+                  dispatch(logoutUser(""));
+                  navigate("/");
+                }}
+              >
                 Logout
               </button>
             </div>
