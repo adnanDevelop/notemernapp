@@ -60,7 +60,6 @@ const login = async (req, res, next) => {
 };
 
 // Get User Data Router
-
 const getUser = async (req, res, next) => {
   try {
     const userData = req.user;

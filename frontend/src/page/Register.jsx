@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { IoMdEye, IoIosEyeOff } from "react-icons/io";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -11,15 +12,23 @@ export default function Register() {
   // Submitting data
   const getData = async (value) => {
     try {
-      await fetch("http://localhost:5000/api/register", {
+      const response = await fetch("http://localhost:5000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(value),
       });
-      reset();
-      navigate("/");
+
+      const userData = await response.json();
+      console.log(userData);
+      if (response.ok) {
+        reset();
+        navigate("/");
+        toast.success(userData.message);
+      } else {
+        toast.error(userData.message);
+      }
     } catch (error) {
       console.log("Error while submitting data of register form ", error);
     }

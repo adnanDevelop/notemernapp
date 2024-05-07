@@ -1,11 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import { logoutUser } from "../feature/user/userSlice";
 
 export default function Navbar() {
+  const [userData, setUserData] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userToken = useSelector((state) => state.userToken);
+
+  const getUserData = async () => {
+    try {
+      const getUser = await fetch("http://localhost:5000/api/user", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+      const response = await getUser.json();
+      setUserData(response.message);
+    } catch (error) {
+      console.error("Error while fetching user data");
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const capitalizeEachWord = (str) => {
+    return str.replace(/\b\w/g, (char) => char.toUpperCase());
+  };
 
   return (
     <nav className=" bg-dark_blue  py-[15px] fixed w-full top-0 left-0">
@@ -51,7 +77,7 @@ export default function Navbar() {
             />
             <div className="flex flex-col items-start gap-1 cursor-pointer">
               <h4 className="text-xs leading-none text-white transition duration-300 sm:text-sm hover:text-green">
-                Uername
+                {userData ? capitalizeEachWord(userData.name) : "Username"}
               </h4>
               <button
                 type="button"
