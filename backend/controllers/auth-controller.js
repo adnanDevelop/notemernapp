@@ -50,8 +50,6 @@ const login = async (req, res, next) => {
         user: userExit,
         token: await userExit.generateToken(),
       });
-    } else {
-      return res.status(401).json({ message: "Invalid email or password" });
     }
   } catch (error) {
     next(error);
@@ -63,7 +61,6 @@ const login = async (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const userData = req.user;
-    console.log(userData);
     res.status(200).json({ message: userData });
   } catch (error) {
     next(error);

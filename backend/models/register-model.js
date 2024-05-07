@@ -39,7 +39,7 @@ registerModel.methods.generateToken = async function () {
   try {
     return jwt.sign(
       {
-        user: this,
+        userId: this.id,
       },
       process.env.JWT_SECRET_KEY,
       {

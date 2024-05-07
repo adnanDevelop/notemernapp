@@ -2,15 +2,15 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className=" text-center w-full py-4 bg-dark_blue text-white text-sm font-normal">
+    <footer className="w-full py-4 text-sm font-normal text-center text-white  bg-dark_blue">
       <p>
-        Copyright © 2024 - All right reserved{" "}
+        Copyright © 2024 - All right reserved by{" "}
         <a
           href="https://adnandev.netlify.app"
           rel="noreferrer"
           target="_blank"
           without
-          className=" no-underline text-green capitalize "
+          className="no-underline capitalize  text-green"
         >
           Adnan Tariq
         </a>

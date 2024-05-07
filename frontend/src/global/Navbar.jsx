@@ -27,7 +27,7 @@ export default function Navbar() {
 
   useEffect(() => {
     getUserData();
-  }, []);
+  });
 
   const capitalizeEachWord = (str) => {
     return str.replace(/\b\w/g, (char) => char.toUpperCase());
