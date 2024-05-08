@@ -19,7 +19,7 @@ const loginValidation = z.object({
   email: z
     .string({ required_error: "Email is required" })
     .trim()
-    .email({ message: "Invalid email addredd" }),
+    .email({ message: "Invalid email address" }),
   password: z
     .string({ required_error: "Password is reuired" })
     .trim()

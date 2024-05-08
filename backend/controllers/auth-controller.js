@@ -1,10 +1,10 @@
-const User = require("../models/register-model");
 const bcrypt = require("bcrypt");
+const User = require("../models/register-model");
 
 // Register Route
 const register = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, image } = req.body;
 
     // Check if user exist
     const isUserExist = await User.findOne({ email });
@@ -18,6 +18,8 @@ const register = async (req, res, next) => {
       email,
       password,
     });
+
+    console.log(req.body);
 
     res.status(200).json({
       message: "Registration successfull",
@@ -38,7 +40,7 @@ const login = async (req, res, next) => {
     // Check if user exit
     const userExit = await User.findOne({ email });
     if (!userExit) {
-      return res.status(401).json({ message: "Invalid Credentials" });
+      return res.status(401).json({ message: "User not found" });
     }
 
     // Comparing user password

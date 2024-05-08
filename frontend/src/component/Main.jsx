@@ -1,11 +1,24 @@
-import React from "react";
-import Card from "./Card";
+import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import EditInputForm from "./EditInputForm";
+import Card from "./Card";
 
 export default function Main() {
+  const [noteData, storeNoteData] = useState(null);
+
+  const fetchNoteData = async () => {
+    const fetchData = await fetch("http://localhost:5000/api/getnote");
+    const response = await fetchData.json();
+
+    return storeNoteData(response.Data);
+  };
+
+  useEffect(() => {
+    fetchNoteData();
+  }, []);
+
   return (
-    <main className="bg-light_blue pb-[30px] pt-[100px] ">
+    <main className="bg-light_blue pb-[30px] h-screen pt-[100px] ">
       <section className="container ">
         {/* Header */}
         <div className="flex items-center justify-end md:justify-between header">
@@ -24,11 +37,15 @@ export default function Main() {
 
         {/* Note Card */}
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 mt-[25px] gap-[15px]">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {noteData
+            ? noteData.map((element, index) => {
+                return <Card data={element} key={index} />;
+              })
+            : [1, 2, 3].map((_, index) => {
+                return (
+                  <div className="w-full h-[200px] skeleton" key={index} />
+                );
+              })}
         </div>
 
         {/* Modal for creating new note  */}

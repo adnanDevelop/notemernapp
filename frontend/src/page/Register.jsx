@@ -75,7 +75,7 @@ export default function Register() {
           />
         </div>
         {/* Password */}
-        <div className="mb-6">
+        <div className="mb-3">
           <div className="mb-2">
             <span className="text-white label-text">Password:</span>
           </div>
@@ -98,6 +98,7 @@ export default function Register() {
           </label>
         </div>
 
+        {/* Submit button */}
         <div className="mt-2">
           <button
             type="submit"

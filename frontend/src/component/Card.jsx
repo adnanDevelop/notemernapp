@@ -3,17 +3,22 @@ import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { MdOutlinePushPin } from "react-icons/md";
 
-export default function Card() {
+export default function Card({ data }) {
   return (
     <>
       <div className="text-white w-full p-[20px] rounded-lg bg-dark_blue shadow-md cursor-pointer border-b-2 border-b-green transition duration-300">
         {/* Card Header */}
         <div className="card_header">
           <h2 className="text-lg leading-none text-white text-start">
-            Practice mind meditation
+            {data ? data.title : "Title"}
           </h2>
           <div className="flex items-center justify-between mt-2">
-            <p className="text-xs ">6th April 2024</p>
+            <p className="text-xs ">
+              {" "}
+              {data
+                ? new Date(data.createdOn).toLocaleDateString()
+                : "6th April 2024"}
+            </p>
             <button
               type="button"
               className="text-lg text-white transition duration-300 cursor-pointer hover:text-green focus:text-green focus:scale-125"
@@ -26,8 +31,7 @@ export default function Card() {
         {/* Card Body */}
         <div className="mt-3 card_body">
           <p className="text-sm font-light text-justify text-content_color">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus
-            officiis maxime repellat distinctio molestiae.
+            {data ? data.content : "Content"}
           </p>
         </div>
 

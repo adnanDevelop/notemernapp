@@ -71,7 +71,7 @@ export default function Navbar() {
           {/* User Profile */}
           <div className="flex items-center gap-x-3">
             <img
-              src="/image/user-logo.jpg"
+              src="/image/user-logo.png"
               className="sm:w-[45px] w-[35px] sm:h-[45px] h-[35px] cursor-pointer object-cover rounded-full"
               alt=""
             />
