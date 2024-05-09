@@ -1,15 +1,16 @@
 const Note = require("../models/note-modal");
 
 const createNote = async (req, res) => {
-  const { title, content, isPinned } = req.body;
+  const { title, content, isPinned, userId } = req.body;
 
   try {
-    console.log(title, content);
+    console.log(userId);
 
     const saveNote = await Note.create({
       title,
       content,
       isPinned,
+      userId,
     });
 
     res

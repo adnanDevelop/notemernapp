@@ -21,7 +21,6 @@ export default function Register() {
       });
 
       const userData = await response.json();
-      console.log(userData);
       if (response.ok) {
         reset();
         navigate("/");

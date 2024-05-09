@@ -2,15 +2,32 @@ import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import EditInputForm from "./EditInputForm";
 import Card from "./Card";
+import { useSelector } from "react-redux";
 
 export default function Main() {
   const [noteData, storeNoteData] = useState(null);
+  const userToken = useSelector((state) => state.userToken);
 
   const fetchNoteData = async () => {
+    // Get logged in user
+    const getUser = await fetch("http://localhost:5000/api/user", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    const userResponse = await getUser.json();
+    const userId = userResponse.message._id;
+
+    // Get Note
     const fetchData = await fetch("http://localhost:5000/api/getnote");
     const response = await fetchData.json();
 
-    return storeNoteData(response.Data);
+    const filterNotes = response.Data.filter((element, index) => {
+      return element._id === userId;
+    });
+
+    storeNoteData(filterNotes);
   };
 
   useEffect(() => {
@@ -18,7 +35,7 @@ export default function Main() {
   }, []);
 
   return (
-    <main className="bg-light_blue pb-[30px] h-screen pt-[100px] ">
+    <main className="bg-light_blue pb-[30px] h-full pt-[100px] ">
       <section className="container ">
         {/* Header */}
         <div className="flex items-center justify-end md:justify-between header">
