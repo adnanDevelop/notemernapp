@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
-export default function EditInputForm() {
+export default function EditInputForm({ fetchNoteData }) {
   const [loading, setLoading] = useState(false);
   const userToken = useSelector((state) => state.userToken);
   const {
@@ -87,7 +87,10 @@ export default function EditInputForm() {
           <button
             type="submit"
             className="block w-full h-[45px] rounded-md bg-green transition duration-300 hover:bg-[#3ba460] text-white"
-            onClick={handleSubmit(getData)}
+            onClick={() => {
+              handleSubmit(getData);
+              fetchNoteData();
+            }}
           >
             {loading ? ( // Render spinner if loading
               <span className="text-white loading loading-spinner leading-[45px]"></span>

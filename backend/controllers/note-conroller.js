@@ -1,11 +1,10 @@
 const Note = require("../models/note-modal");
 
+// Create note api
 const createNote = async (req, res) => {
   const { title, content, isPinned, userId } = req.body;
 
   try {
-    console.log(userId);
-
     const saveNote = await Note.create({
       title,
       content,
@@ -33,12 +32,14 @@ const getNote = async (req, res) => {
   }
 };
 
+// Update note api
 const updateNote = (req, res) => {
   try {
     res.status(200).json({ message: req.body });
   } catch (error) {}
 };
 
+// Delete note api
 const deleteNote = (req, res) => {
   try {
     res.status(200).json({ message: req.body });

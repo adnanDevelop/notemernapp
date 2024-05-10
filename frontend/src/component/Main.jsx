@@ -9,7 +9,6 @@ export default function Main() {
   const userToken = useSelector((state) => state.userToken);
 
   const fetchNoteData = async () => {
-    // Get logged in user
     const getUser = await fetch("http://localhost:5000/api/user", {
       method: "GET",
       headers: {
@@ -19,12 +18,11 @@ export default function Main() {
     const userResponse = await getUser.json();
     const userId = userResponse.message._id;
 
-    // Get Note
     const fetchData = await fetch("http://localhost:5000/api/getnote");
     const response = await fetchData.json();
 
-    const filterNotes = response.Data.filter((element, index) => {
-      return element._id === userId;
+    const filterNotes = response.Data.filter((element) => {
+      return element.userId === userId;
     });
 
     storeNoteData(filterNotes);
@@ -55,8 +53,8 @@ export default function Main() {
         {/* Note Card */}
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 mt-[25px] gap-[15px]">
           {noteData
-            ? noteData.map((element, index) => {
-                return <Card data={element} key={index} />;
+            ? noteData.map((element, _) => {
+                return <Card data={element} key={element.id} />;
               })
             : [1, 2, 3].map((_, index) => {
                 return (
@@ -69,7 +67,7 @@ export default function Main() {
         <dialog id="create_modal" className="modal ">
           <div className="overflow-hidden rounded-md modal-box bg-dark_blue">
             {/* Edit Input Form */}
-            <EditInputForm />
+            <EditInputForm fetchNoteData={fetchNoteData} />
           </div>
         </dialog>
       </section>
