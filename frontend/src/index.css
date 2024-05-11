@@ -13,6 +13,7 @@
 body {
   overflow-x: hidden;
   font-family: "Poppins", sans-serif;
+  background-color: #272736;
 }
 
 body::-webkit-scrollbar {

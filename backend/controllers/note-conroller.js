@@ -40,10 +40,16 @@ const updateNote = (req, res) => {
 };
 
 // Delete note api
-const deleteNote = (req, res) => {
+const deleteNote = async (req, res) => {
   try {
-    res.status(200).json({ message: req.body });
-  } catch (error) {}
+    const { id } = req.body;
+    await Note.deleteOne({ _id: id });
+
+    res.status(200).json({ message: "Note successfully deleted." });
+  } catch (error) {
+    console.log("Error while deleting note", error);
+    res.status(500).json({ error: "Error while deleting note" });
+  }
 };
 
 module.exports = { createNote, getNote, updateNote, deleteNote };

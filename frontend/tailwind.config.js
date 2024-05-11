@@ -10,6 +10,7 @@ module.exports = {
       black: "#000000",
       gray: "#797979",
       content_color: "#C7CBD2",
+      
     },
     // fontFamily: {
     //   primary: ["Plus Jakarta Sans", "sans-serif"],
