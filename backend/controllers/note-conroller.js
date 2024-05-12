@@ -44,6 +44,7 @@ const deleteNote = async (req, res) => {
   try {
     const { id } = req.body;
     await Note.deleteOne({ _id: id });
+    console.log(id);
 
     res.status(200).json({ message: "Note successfully deleted." });
   } catch (error) {

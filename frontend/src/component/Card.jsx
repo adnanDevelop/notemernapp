@@ -4,13 +4,7 @@ import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { MdOutlinePushPin } from "react-icons/md";
 
-export default function Card({
-  data,
-  setUpdateNoteId,
-  fetchNoteData,
-  isNoteEdit,
-  setIsNoteEdit,
-}) {
+export default function Card({ data, fetchNoteData, setIsNoteEdit }) {
   const [loading, setLoading] = useState(false);
 
   // Delete note
@@ -42,6 +36,8 @@ export default function Card({
       console.log("Error while note", err);
     }
   };
+
+  const modalId = `delete_modal_${data._id}`;
 
   return (
     <>
@@ -83,7 +79,6 @@ export default function Card({
               onClick={() => {
                 document.getElementById("create_modal").showModal();
                 setIsNoteEdit("editNote");
-                setUpdateNoteId(data._id);
               }}
             >
               <MdModeEdit />
@@ -92,7 +87,7 @@ export default function Card({
               type="button"
               className="text-lg text-white transition duration-300 cursor-pointer hover:text-green focus:text-green hover:scale-125"
               onClick={() => {
-                document.getElementById("delete_modal").showModal();
+                document.getElementById(modalId).showModal();
               }}
             >
               <MdDelete />
@@ -102,7 +97,7 @@ export default function Card({
       </div>
 
       {/* Modal for deleting */}
-      <dialog id="delete_modal" className="modal">
+      <dialog id={modalId} className="modal">
         <div className="overflow-hidden rounded-md modal-box bg-dark_blue">
           <h3 className="text-white text-center text-[30px] leading-none font-medium">
             Delete <span className=" text-green">Note</span>

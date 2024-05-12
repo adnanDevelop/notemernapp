@@ -52,6 +52,8 @@ export default function Main() {
     userId && fetchNoteData();
   }, [userId, userToken]);
 
+  console.log(updateNoteId);
+
   return (
     <main className=" pb-[100px]  pt-[100px] h-screen overflow-y-auto scrollbar ">
       <section className="container ">
@@ -85,6 +87,7 @@ export default function Main() {
                 data={element}
                 key={index}
                 fetchNoteData={fetchNoteData}
+                updateNoteId={updateNoteId}
                 setUpdateNoteId={setUpdateNoteId}
                 isNoteEdit={isNoteEdit}
                 setIsNoteEdit={setIsNoteEdit}
@@ -101,7 +104,7 @@ export default function Main() {
               userId={userId}
               fetchNoteData={fetchNoteData}
               isNoteEdit={isNoteEdit}
-              updateNoteId={updateNoteId}
+              setUpdateNoteId={setUpdateNoteId}
             />
           </div>
         </dialog>
