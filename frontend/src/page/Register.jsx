@@ -5,33 +5,33 @@ import { IoMdEye, IoIosEyeOff } from "react-icons/io";
 import { toast } from "react-toastify";
 
 export default function Register() {
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const { register, reset, handleSubmit } = useForm();
+    const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+    const { register, reset, handleSubmit } = useForm();
 
-  // Submitting data
-  const getData = async (value) => {
-    try {
-      const response = await fetch("http://localhost:5000/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(value),
-      });
+    // Submitting data
+    const getData = async (value) => {
+      try {
+        const response = await fetch("http://localhost:5000/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(value),
+        });
 
-      const userData = await response.json();
-      if (response.ok) {
-        reset();
-        navigate("/");
-        toast.success(userData.message);
-      } else {
-        toast.error(userData.message);
+        const userData = await response.json();
+        if (response.ok) {
+          reset();
+          navigate("/");
+          toast.success(userData.messagae);
+        } else {
+          toast.error(userData.message);
+        }
+      } catch (error) {
+        console.log("Error while submitting data of register form ", error);
       }
-    } catch (error) {
-      console.log("Error while submitting data of register form ", error);
-    }
-  };
+    };
 
   return (
     <main className="flex items-center justify-center w-full h-screen bg-light_blue">

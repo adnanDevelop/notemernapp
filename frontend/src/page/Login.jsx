@@ -30,7 +30,7 @@ export default function Login() {
         dispatch(setUserToken(data.token)); //Storing user token
         toast.success(data.message);
       } else {
-        console.log(data);
+        console.log(data.message);
         toast.error(data.message);
       }
     } catch (err) {

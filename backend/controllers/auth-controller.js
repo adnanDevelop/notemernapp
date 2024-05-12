@@ -19,8 +19,6 @@ const register = async (req, res, next) => {
       password,
     });
 
-    console.log(req.body);
-
     res.status(200).json({
       message: "Registration successfull",
       user: storeData,
@@ -40,7 +38,7 @@ const login = async (req, res, next) => {
     // Check if user exit
     const userExit = await User.findOne({ email });
     if (!userExit) {
-      return res.status(401).json({ message: "User not found" });
+      return res.status(401).json({ message: "Invalid email address" });
     }
 
     // Comparing user password
@@ -51,6 +49,10 @@ const login = async (req, res, next) => {
         message: "Login successfull",
         user: userExit,
         token: await userExit.generateToken(),
+      });
+    } else {
+      res.status(401).json({
+        message: "Password does not match",
       });
     }
   } catch (error) {
