@@ -20,7 +20,7 @@ const register = async (req, res, next) => {
     });
 
     res.status(200).json({
-      message: "Registration successfull",
+      message: "Registered successfull",
       user: storeData,
       token: await storeData.generateToken(),
     });
