@@ -15,4 +15,15 @@ const registerValidation = z.object({
     .min(8, { message: "Password must be atleast 8 charactors" }),
 });
 
-module.exports = registerValidation;
+const loginValidation = z.object({
+  email: z
+    .string({ required_error: "Email is required" })
+    .trim()
+    .email({ message: "Invalid email address" }),
+  password: z
+    .string({ required_error: "Password is reuired" })
+    .trim()
+    .min(8, { message: "Password must be atleast 8 charactors" }),
+});
+
+module.exports = { registerValidation, loginValidation };

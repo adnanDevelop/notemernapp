@@ -2,13 +2,15 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const router = require("./routes/auth-route");
+const authRoutes = require("./routes/auth-route");
+const noteRoutes = require("./routes/note-route");
 const dbConnection = require("./database/db");
 const errorMiddleware = require("./middleware/errorMIddleware");
 
 app.use(cors());
 app.use(express.json());
-app.use("/api", router);
+app.use("/api", authRoutes);
+app.use("/api", noteRoutes);
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 4000;

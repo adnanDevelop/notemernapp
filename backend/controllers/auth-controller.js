@@ -1,14 +1,10 @@
-const User = require("../models/register-model");
 const bcrypt = require("bcrypt");
-
-const getData = async (req, res) => {
-  res.json({ message: "working" });
-};
+const User = require("../models/register-model");
 
 // Register Route
 const register = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, image } = req.body;
 
     // Check if user exist
     const isUserExist = await User.findOne({ email });
@@ -24,7 +20,7 @@ const register = async (req, res, next) => {
     });
 
     res.status(200).json({
-      message: "Registration successfull",
+      message: "Registered successfull",
       user: storeData,
       token: await storeData.generateToken(),
     });
@@ -42,7 +38,7 @@ const login = async (req, res, next) => {
     // Check if user exit
     const userExit = await User.findOne({ email });
     if (!userExit) {
-      return res.status(401).json({ message: "Invalid Credentials" });
+      return res.status(401).json({ message: "Invalid email address" });
     }
 
     // Comparing user password
@@ -55,7 +51,9 @@ const login = async (req, res, next) => {
         token: await userExit.generateToken(),
       });
     } else {
-      return res.status(401).json({ message: "Invalid email or password" });
+      res.status(401).json({
+        message: "Password does not match",
+      });
     }
   } catch (error) {
     next(error);
@@ -63,4 +61,15 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { register, getData, login };
+// Get User Data Router
+const getUser = async (req, res, next) => {
+  try {
+    const userData = req.user;
+    res.status(200).json({ message: userData });
+  } catch (error) {
+    next(error);
+    console.log("Error while getting user data", error);
+  }
+};
+
+module.exports = { register, login, getUser };

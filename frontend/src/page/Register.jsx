@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { IoMdEye, IoIosEyeOff } from "react-icons/io";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -11,15 +12,22 @@ export default function Register() {
   // Submitting data
   const getData = async (value) => {
     try {
-      await fetch("http://localhost:5000/api/register", {
+      const response = await fetch("http://localhost:5000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(value),
       });
-      reset();
-      navigate("/");
+
+      const userData = await response.json();
+      if (response.ok) {
+        toast.success(userData.message);
+        reset();
+        navigate("/");
+      } else {
+        toast.error(userData.message);
+      }
     } catch (error) {
       console.log("Error while submitting data of register form ", error);
     }
@@ -66,7 +74,7 @@ export default function Register() {
           />
         </div>
         {/* Password */}
-        <div className="mb-6">
+        <div className="mb-3">
           <div className="mb-2">
             <span className="text-white label-text">Password:</span>
           </div>
@@ -89,6 +97,7 @@ export default function Register() {
           </label>
         </div>
 
+        {/* Submit button */}
         <div className="mt-2">
           <button
             type="submit"

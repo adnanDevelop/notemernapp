@@ -4,6 +4,7 @@ import { IoMdEye, IoIosEyeOff } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setUserToken } from "../feature/user/userSlice";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
+  //
   const getData = async (value) => {
     try {
       const response = await fetch("http://localhost:5000/api/login", {
@@ -21,12 +23,16 @@ export default function Login() {
         body: JSON.stringify(value),
       });
 
-      reset("");
-      navigate("/home");
-
-      // Storing token in local storage
       const data = await response.json();
-      dispatch(setUserToken(data.token));
+      if (response.ok) {
+        reset("");
+        navigate("/home");
+        dispatch(setUserToken(data.token)); //Storing user token
+        toast.success(data.message);
+      } else {
+        console.log(data.message);
+        toast.error(data.message);
+      }
     } catch (err) {
       console.log("Error while login ", err);
     }
